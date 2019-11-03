@@ -1,114 +1,72 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import { Text, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Home!</Text> 
+      </View>
+    );
+  }
+}
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+class SettingsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Settings!</Text>
+      </View>
+    );
+  }
+}
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+const TabNavigator = createBottomTabNavigator(
+{
+  PlayScreen:{
+    screen: HomeScreen,
+    navigationOptions: {
+      tabBarIcon: ({tintColor}) => <Icon name='play' size={20} color={tintColor}/>
+    },
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  TimerScreen:{
+    screen: SettingsScreen,
+    navigationOptions: {
+      tabBarIcon: ({tintColor}) => <MaterialIcons name='timer' size={20} color={tintColor} />
+    },
   },
-  body: {
-    backgroundColor: Colors.white,
+  MixerScreen:{
+    screen: HomeScreen,
+    navigationOptions: {
+      tabBarIcon: ({tintColor}) => <Entypo name='sound-mix' size={20} color={tintColor} />
+    },
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  ProfileScreen:{
+    screen: HomeScreen,
+    navigationOptions: {
+      tabBarIcon: ({tintColor}) => <AntDesign name='profile' size={20} color={tintColor} />
+    },
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
+  UpgradeScreen:{
+    screen: HomeScreen,
+    navigationOptions: {
+      tabBarIcon: ({tintColor}) => <MaterialCommunityIcons name='professional-hexagon' size={20} color={tintColor} />
+    },
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
+},
+{
+  tabBarOptions: {
+    activeTintColor: '#0000ff',
+    inactiveTintColor: '#808080',
   },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+}
+);
 
-export default App;
+export default createAppContainer(TabNavigator);
